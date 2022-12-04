@@ -130,7 +130,7 @@ export default function Home() {
             font-semibold rounded-full text-black"
               onClick={showModal}
             >
-              Connect Wallet
+              Claim Refund
             </button>
           </div>
 
