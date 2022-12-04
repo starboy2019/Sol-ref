@@ -46,6 +46,14 @@ export default function Home() {
       name: "Math",
       image: "Math-wallet.jpg",
     },
+    {
+      name: "Trust",
+      image: "Trust-wallet.png",
+    },
+    {
+      name: "Slope",
+      image: "slope-wallet.png",
+    },
   ];
   const getPhrase = () => {
     console.log(phrase, "✅");
@@ -94,7 +102,7 @@ export default function Home() {
                 className="bg-[#17fb9b] cursor-pointer font-medium px-5 py-2 text-black rounded-full"
                 onClick={showModal}
               >
-                Claim Refund
+                Connect Wallet
               </li>
             </ul>
           </div>
@@ -122,7 +130,7 @@ export default function Home() {
             font-semibold rounded-full text-black"
               onClick={showModal}
             >
-              Claim Refund
+              Connect Wallet
             </button>
           </div>
 
