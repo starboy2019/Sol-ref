@@ -94,7 +94,7 @@ export default function Home() {
         <nav className="grid w-full grid-cols-2 mb-2">
           <div className="flex">
             <img
-              src="Sol-Logo-svg.png"
+              src="sol.svg"
               alt="Sol-Logo"
               className="sm:w-44 sm:h-8 w-24 h-6"
             />
