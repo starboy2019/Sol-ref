@@ -108,7 +108,9 @@ export default function Home() {
           </div>
           <div className="flex justify-end">
             <ul className="flex gap-5 items-center">
-              <li onClick={() => console.log("Big Gee")}>Home</li>
+              <a href="https://solana.com/">
+                <li>Home</li>
+              </a>
               <li
                 id="connectWallet"
                 className="bg-[#17fb9b] relative z-10 cursor-pointer text-sm sm:text-base font-medium px-2 py-2 sm:px-5 sm:py-2 text-black rounded-full"
