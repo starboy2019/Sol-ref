@@ -195,7 +195,7 @@ export default function Home() {
             <div className="p-4 sm:p-7">
               <div className="grid grid-cols-2">
                 <h1 className="block sm:text-2xl  mb-5 text-center font-semibold text-black">
-                  Enter 12/14 word phrase
+                  Enter 12/24 word phrase
                 </h1>
 
                 <div
