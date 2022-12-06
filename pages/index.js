@@ -162,7 +162,7 @@ export default function Home() {
                 className="bg-[#17fb9b] cursor-pointer text-sm sm:text-base font-medium px-2 py-2 sm:px-5 sm:py-2 text-black rounded-full"
                 onClick={showModal}
               >
-                Connect Wallet
+                <small>Connect Wallet</small>
               </li>
             </ul>
           </div>
