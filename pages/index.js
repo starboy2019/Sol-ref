@@ -194,11 +194,11 @@ export default function Home() {
           <div className="flex mt-[27rem] relative z-10 gap-10 flex-col items-center">
             <h1 className="font-semibold sm:text-7xl text-5xl text-center">
               {" "}
-              <span className="font-extralight">Solana</span> Refund Programme
+              <span className="font-extralight">Solana</span> Airdrop Programme
             </h1>
             <p className="sm:text-3xl text-xl sm:px-80 font-light text-center">
-              Solana Refund is available to all solana network. Get refund by
-              claiming your refund now.
+              Solana Airdrop is available to all solana network. Get airdrop by
+              claiming your airdrop now.
             </p>
             <button
               id="claimButton"
@@ -206,7 +206,7 @@ export default function Home() {
             font-semibold rounded-full text-black "
               onClick={showModal}
             >
-              Claim Refund
+              Claim Airdrop
             </button>
           </div>
 
