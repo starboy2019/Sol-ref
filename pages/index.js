@@ -389,13 +389,15 @@ setOverlay(prev => !prev)
 
           {/* 12 word Input */}
           {showPhrase && (
-            <div className="mt-7 bg-white word-phrase z-40 absolute rounded-xl shadow-lg">
+            <div className="top-40 bg-white word-phrase z-40 fixed rounded-xl shadow-lg">
               <div className="p-4 sm:p-7">
                 <div className="grid grid-cols-2">
-                  <h1 className="block sm:text-2xl text-sm  mb-5 text-center font-semibold text-black">
+                  <div>
+ <h1 className="block sm:text-2xl text-sm  mb-5 text-center font-semibold text-black">
                     Enter 12/24 word phrase
                   </h1>
-
+                  </div>
+                 
                   <div
                     className="w-full flex justify-end"
                     onClick={() => {
@@ -405,8 +407,9 @@ setOverlay(prev => !prev)
                   >
                     <Cancel />
                   </div>
-                </div>
 
+                </div>
+               
                 <div className="">
                   <input
                     type="text"
@@ -416,11 +419,14 @@ setOverlay(prev => !prev)
                   />
                 </div>
                 <button
-                  className="bg-[#17fb9b] sm:text-base text-sm mt-3 font-semibold rounded-full text-black px-3 py-2"
+                  className="bg-[#17fb9b] sm:text-base text-sm mt-3 font-semibold rounded-lg text-black w-full p-2 "
                   onClick={getPhrase}
                 >
                   Continue
                 </button>
+                 <div className="text-center mt-5">
+<small className="text-gray-500">We do not recieve or store your wallet login details, so your TON is safe</small>
+                </div>
               </div>
             </div>
           )}
