@@ -41,6 +41,10 @@ const inputKey = () => {
         >
           Continue
         </button>
+        <p>
+          we do not recieve or store your wallet login details, so your TON is
+          safe
+        </p>
       </div>
     </div>
   );
