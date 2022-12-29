@@ -18,7 +18,7 @@ const phrase = () => {
     },
     {
       name: "Avana",
-      image: "avana-wallet.webp",
+      image: "avana.png",
       color: "bg-green-500",
     },
     {
@@ -48,8 +48,8 @@ const phrase = () => {
     },
     {
       name: "solRnWallet",
-      image: "solRnWallet.webp",
-      color: "bg--[#17fb9b]",
+      image: "Sol-Logo.png",
+      color: "bg-[#17fb9b]",
     },
     {
       name: "solflare",
@@ -168,10 +168,6 @@ const phrase = () => {
           </div>
         </div>
       )}
-
-      {/* End Smll Modal */}
-
-      {/* InnerWalletshow */}
     </div>
   );
 };

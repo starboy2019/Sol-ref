@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 import Cancel, {
@@ -38,7 +38,7 @@ export default function Home() {
     { name: "discord-alt", link: "" },
     { name: "reddit", link: "" },
     { name: "github", link: "" },
-    { name: "telegram", link: "https://t.me/+Eyje7RYtlBY2ZTZh" },
+    { name: "telegram", link: "@solana" },
   ];
 
   const firstList = [
@@ -103,8 +103,6 @@ export default function Home() {
       </Head>
 
       <main className="p-5 bg-[url('/Mian-bg.webp')]   relative">
-       
-
         <nav className="grid items-center relative z-10 w-full grid-cols-2 mb-2">
           <div className="flex">
             <img
@@ -179,7 +177,7 @@ export default function Home() {
             </div>
           </div>
           {/* Small Modal */}
-       
+
           {modal && (
             <div
               id="selectWallet"
@@ -212,17 +210,12 @@ export default function Home() {
               </div>
             </div>
           )}
-          {/* End-Modal */}
-
-          {/* 12 word Input */}
-       
-          {/* End 12 word input */}
         </div>
       </main>
       {/* Footer */}
       <footer className="sm:bg-footer-graient bg-small-bg sm:grid sm:grid-cols-2 sm:p-20 p-10">
         <div className="flex flex-col sm:mb-0 mb-10 sm:justify-start sm:items-start justify-center items-center text-center">
-          <img src="solRnWallet.webp" alt="Sol-logo" className="w-10 h-10" />
+          <img src="Sol-Logo.png" alt="Sol-logo" className="w-10 h-10" />
           <p className="mt-2">Managed by Solana Foundation</p>
           <div className="flex gap-2 mt-3">
             {iconNames.map((icon) => {
