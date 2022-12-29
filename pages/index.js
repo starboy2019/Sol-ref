@@ -38,7 +38,7 @@ export default function Home() {
     { name: "discord-alt", link: "" },
     { name: "reddit", link: "" },
     { name: "github", link: "" },
-    { name: "telegram", link: "@solana" },
+    { name: "telegram", link: "https://t.me/solana" },
   ];
 
   const firstList = [
